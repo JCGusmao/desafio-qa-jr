@@ -1,65 +1,211 @@
-# Desafio Prático - Automação de Testes
+# Automação de Testes E2E com Cypress
 
-## 🎯 Objetivo
+Este projeto contém testes automatizados End-to-End (E2E) desenvolvidos com Cypress, utilizando como base a aplicação:
 
-Criar testes automatizados E2E para uma aplicação web usando Cypress ou Playwright.
-
----
-
-## 🌐 Aplicação para Testar
-
-### Opção 1: The Internet
-
-Use o site **[The Internet](https://the-internet.herokuapp.com/)** para criar seus testes.
-
-Este site oferece diversos exemplos práticos para testar:
-- Form Authentication
-- Dynamic Content
-- File Upload
-- JavaScript Alerts
-- E muitos outros...
-
-### Opção 2: Outro Site Público
-
-Se preferir, você pode usar outro site público conhecido. **Importante**: Documente qual site você escolheu e por quê.
+https://the-internet.herokuapp.com
 
 ---
 
-## ✅ Requisitos Obrigatórios
+## Tecnologias utilizadas
 
-1. **Criar pelo menos 3 testes** cobrindo cenários principais
-2. **Criar README** explicando como executar os testes
-3. **Documentar** os testes criados
+- Cypress
+- JavaScript
+- Node.js
+- Git
+- GitHub
 
 ---
 
-## 📁 Onde Criar os Testes
+## Pré-requisitos
 
-Crie seus testes **diretamente nesta pasta** (`desafio-pratico/`). 
+Antes de executar o projeto, é necessário ter instalado:
 
-### Estrutura Sugerida
+- Node.js
+- npm
+
+Verifique com:
+
+```bash
+node -v
+npm -v
+```
+
+---
+
+## Instalação
+
+Clone o repositório:
+
+``` bash
+git clone https://github.com/JCGusmao/desafio-qa-jr.git
+```
+
+Entre na pasta:
+
+``` bash
+cd desafio-qa-jr
+cd desafio-pratico
+```
+
+Instale as dependências:
+
+``` bash
+npm install
+```
+
+---
+
+## Executando os testes
+
+Modo interativo (interface do Cypress):
+
+``` bash
+npx cypress open
+```
+
+Modo headless (via terminal):
+
+```bash
+npx cypress run
+```
+
+---
+
+## Estrutura do Projeto
 
 ```
 desafio-pratico/
-├── README.md                    # Como executar os testes (você pode usar este como base)
+├── README.md                    
 ├── package.json                 # Dependências
-├── cypress.config.js ou playwright.config.js
-├── cypress/ ou playwright/      # Estrutura da ferramenta escolhida
+├── cypress.config.js
+├── cypress
 │   ├── e2e/                    # Testes E2E
-│   ├── fixtures/               # Dados de teste (opcional)
-│   └── support/                # Comandos customizados (opcional)
+│   ├── fixtures/               # Dados de teste
+│   └── support/                # Comandos customizados
 └── [outros arquivos de configuração]
 ```
+---
+
+## Documentação dos testes
+
+### Login
+
+Arquivo: `login.cy.js`
+
+Valida:
+
+-   Login com sucesso
+-   Login com credenciais inválidas
+-   Login com campos vazios
+
+Custom Command utilizado:
+
+``` js
+cy.login(userName, senha)
+```
+
+Validações aplicadas:
+
+-   Mensagem de sucesso
+-   Mensagem de erro
+-   Redirecionamento correto
 
 ---
 
-## 📚 Recursos
+### Alert, Confirm e Prompt
 
-- [The Internet - Site de Teste](https://the-internet.herokuapp.com/)
-- [Documentação Cypress](https://docs.cypress.io/)
-- [Documentação Playwright](https://playwright.dev/)
-- [Page Object Model Pattern](https://playwright.dev/docs/pom)
+Arquivo: `alerts.cy.js`
+
+Valida:
+
+-   Exibição de alert
+-   Confirm com OK
+-   Confirm com Cancel
+-   Prompt com texto
+-   Prompt vazio
+-   Prompt cancelado
+
+Custom Commands utilizados:
+
+``` js
+cy.optionAlert()
+cy.optionConfirm()
+cy.optionPrompt()
+```
+
+Validações aplicadas:
+
+-   Mensagem exibida corretamente
+-   Comportamento correto para OK e Cancel
 
 ---
 
-**Boa sorte!** 🍀
+### Upload de arquivos
+
+Arquivo: `upload.cy.js`
+
+Valida:
+
+-   Upload via botão
+-   Upload via drag and drop
+
+Custom Commands utilizados:
+
+``` js
+cy.uploadFile()
+cy.dragAndDropFile()
+cy.validateUploadedFile()
+```
+
+Validações aplicadas:
+
+-   Arquivo enviado corretamente
+-   Nome do arquivo exibido na tela
+
+---
+
+### Status Codes
+
+Arquivo: `status-codes.cy.js`
+
+Valida redirecionamento para páginas com status:
+
+-   200
+-   301
+-   404
+-   500
+
+Custom Command utilizado:
+
+``` js
+cy.redirectStatus()
+```
+
+Validações aplicadas:
+
+-   URL correta
+-   Página carregada corretamente
+
+---
+
+### Custom Commands
+
+Arquivo: `cypress/support/commands.js`
+
+Objetivo:
+
+-   Reutilização de código
+-   Melhor organização
+-   Facilitar manutenção
+
+Exemplos implementados:
+
+-   login
+-   uploadFile
+-   dragAndDropFile
+-   redirectStatus
+-   optionAlert
+-   optionConfirm
+-   optionPrompt
+
+---

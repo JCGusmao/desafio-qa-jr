@@ -11,7 +11,10 @@ O que é um teste de regressão e quando devemos executá-lo? Dê um exemplo pr�
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+O teste de regressão garante que uma alteração no sistema, como correção de bug, nova funcionalidade ou atualização de código, não afete funcionalidades que já estavam funcionando corretamente.
+Ele deve ser executado sempre que houver mudanças no sistema, principalmente antes de liberar uma nova versão para produção, garantindo que o sistema continue estável e sem impactos negativos em funcionalidades existentes.
+
+Por exemplo, em um sistema de e-commerce, o time desenvolve uma nova funcionalidade de cupom de desconto. Após essa alteração, são executados testes de regressão para garantir que o login, cadastro, adição ao carrinho e finalização da compra continuam funcionando normalmente. 
 ```
 
 ---
@@ -21,7 +24,14 @@ Explique a diferença entre teste funcional e teste não-funcional. Dê exemplos
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+Testes funcionais verificam se as funcionalidades do sistema estão funcionando conforme o esperado, validando as regras de negócio e comportamentos da aplicação.
+
+Já os testes não-funcionais avaliam como o sistema se comporta, verificando aspectos de qualidade como desempenho, segurança e usabilidade.
+
+
+Por exemplo: 
+- Validar o login de um usuário com dados válidos é um teste funcional.  
+- Verificar se o sistema mantém um bom desempenho com muitos usuários acessando ao mesmo tempo é um teste não-funcional.
 ```
 
 ---
@@ -33,7 +43,10 @@ Quais são as principais vantagens e desvantagens de testes automatizados em rel
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+Os testes automatizados têm como vantagens a rapidez, a redução de erros humanos e a economia de tempo em testes repetitivos, sendo ideais para cenários executados com frequência, como testes de regressão e fluxos críticos. Como desvantagens, exigem configuração inicial, conhecimento técnico e manutenção.  
+Já os testes manuais são mais flexíveis e indicados para testes exploratórios, validação de interface e funcionalidades novas. Como desvantagens, são mais lentos e sujeitos a falhas humanas.
+
+Eu costumo priorizar a automação em cenários estáveis, fluxos críticos e repetitivos, e os testes manuais em funcionalidades novas ou situações em que a automação não compensa.
 ```
 
 ---
@@ -43,7 +56,9 @@ Como você decidiria quais funcionalidades automatizar primeiro? Quais critério
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+Eu priorizo automatizar funcionalidades mais críticas e repetitivas do sistema, como login, cadastro e fluxos principais de negócio. 
+
+Os principais critérios seriam o impacto para o usuário, a frequência de uso, o risco de falhas e a estabilidade da funcionalidade.
 ```
 
 ---
@@ -55,7 +70,10 @@ Quais são as principais diferenças entre Cypress e Playwright? Em que cenário
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+O Cypress é uma ferramenta mais simples de configurar e muito usada para testes de front-end, sendo uma boa opção para projetos menores.  
+Pelo que eu li sobre o Playwright, ele é mais utilizado em cenários que exigem suporte a vários navegadores e testes mais complexos.
+
+O Cypress é indicado para automações mais simples e rápidas, e o Playwright para projetos que precisem de maior cobertura de navegadores.
 ```
 
 ---
@@ -65,7 +83,8 @@ Como você lidaria com elementos que demoram para carregar em testes E2E? Quais 
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+Eu utilizo esperas automáticas do Cypress, aguardando o elemento ficar visível ou habilitado antes de interagir. Por exemplo, esperar um botão aparecer na tela antes de clicar ou aguardar o carregamento de uma lista antes de validar os dados.  
+Também procuro utilizar seletores estáveis e acompanhar o tempo de execução dos testes. Caso o carregamento demore além do esperado e impacte o teste, o ideal é reportar ao time, para investigar se é um problema de desempenho ou da própria aplicação.
 ```
 
 ---
@@ -77,7 +96,22 @@ Como você organizaria uma suíte de testes E2E para facilitar manutenção e es
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+Eu costumo organizar a suíte separando os arquivos por funcionalidade dentro da pasta e2e, facilitando a manutenção e a escalabilidade do projeto.
+
+Uma estrutura simples poderia ser:
+
+cypress/
+  e2e/
+      login.cy.js
+      cadastro.cy.js
+      carrinho.cy.js
+  support/
+    commands.js
+    e2e.js
+  fixtures/
+    usuarios.json
+
+Dessa forma os testes ficam organizados por funcionalidade dentro da pasta e2e, facilitando a localização e a manutenção dos cenários. A pasta support uso para comandos customizados e configurações, e a pasta fixtures para dados de teste.
 ```
 
 ---
@@ -87,7 +121,12 @@ O que é Page Object Model (POM)? Quais são as vantagens de usar esse padrão? 
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+POM é um padrão de organização de testes onde cada página do sistema é representada por uma classe ou arquivo, contendo os elementos e as ações daquela página.
+A principal vantagem é a organização e a reutilização de código, facilitando a manutenção quando a interface muda.
+
+Por exemplo, em vez de repetir o código de login em vários testes, cria-se um método como “realizarLogin”, que é reutilizado nos cenários, deixando o código mais limpo e fácil de manter.
+
+No Cypress, costumo utilizar custom commands no lugar de POM, pois eles permitem reutilizar ações de forma mais simples e facilita a manutenção do teste.
 ```
 
 ---
@@ -99,7 +138,7 @@ Como você garantiria que seus testes sejam independentes e possam rodar em qual
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+Evitando que um teste dependa do resultado de outro e evitando compartilhar estado entre testes, como reutilizar sessões ou dados criados em cenários diferentes.
 ```
 
 ---
@@ -111,7 +150,10 @@ Explique o que é BDD (Behavior-Driven Development) e como ele se relaciona com 
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+BDD é uma forma de descrever o comportamento esperado do sistema de um jeito mais próximo da linguagem do usuário, usando o formato Dado, Quando, Então.
+Dessa forma, todo o time consegue ter o mesmo entendimento sobre o que deve ser desenvolvido e testado.
+
+Já utilizei BDD para escrever cenários em Gherkin, para organizar os testes e deixar os fluxos mais claros para o time.
 ```
 
 ---
@@ -121,7 +163,9 @@ Como você integraria testes automatizados em um pipeline de CI/CD? Quais são o
 
 **Espaço para resposta:**
 ```
-[Seu texto aqui]
+Ainda não atuei muito na prática com CI/CD, mas entendo o conceito. Os testes automatizados entram como uma etapa do pipeline e rodam a cada PR ou merge, impedindo que código com falha avance. 
+
+Os principais pontos são garantir que os testes sejam estáveis e confiáveis, porque testes flakey acabam quebrando o pipeline sem indicar um problema real.
 ```
 
 ---
